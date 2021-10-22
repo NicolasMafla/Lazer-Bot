@@ -27,6 +27,5 @@ for file_name in os.listdir("./cogs"):
     if file_name.endswith(".py"):
         bot.load_extension(f"cogs.{file_name[:-3]}")
 
-
 keep_alive()
 bot.run(DISCORD_TOKEN)
