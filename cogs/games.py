@@ -14,6 +14,7 @@ pos_8 = 7
 pos_9 = 8
 REACTIONEMOJI = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️⃣", "❗"]
 
+
 class Juegos(commands.Cog, description="Colección de minijuegos"):
     def __init__(self, client):
         self.client = client
@@ -21,33 +22,34 @@ class Juegos(commands.Cog, description="Colección de minijuegos"):
     @commands.command(description="Lista de minijuegos disponibles para jugar con otros miembros",
                       brief="Lista de minijuegos")
     async def jueguitos(self, ctx):
-      embed = discord.Embed(
-          title="Escoge un juego papu (Reacciona a uno de los juegos disponibles )",
-          description="1: Tres en raya \n2: Ahorcado \n3: Piedra papel o tijera"
-      )
-      msg = await ctx.send(embed=embed)
+        embed = discord.Embed(
+            title="Escoge un juego papu (Reacciona a uno de los juegos disponibles )",
+            description="1: Tres en raya \n2: Ahorcado \n3: Piedra papel o tijera"
+        )
+        msg = await ctx.send(embed=embed)
 
-      await msg.add_reaction("1️⃣")
-      await msg.add_reaction("2️⃣")
-      await msg.add_reaction("3️⃣")
+        await msg.add_reaction("1️⃣")
+        await msg.add_reaction("2️⃣")
+        await msg.add_reaction("3️⃣")
 
-      def checkReaction(reaction, user):
-          return user != self.client.user and (str(reaction.emoji) == "1️⃣" or str(reaction.emoji) == "2️⃣" or str(reaction.emoji) == "3️⃣")
+        def checkReaction(reaction, user):
+            return user != self.client.user and (
+                        str(reaction.emoji) == "1️⃣" or str(reaction.emoji) == "2️⃣" or str(reaction.emoji) == "3️⃣")
 
-      try:
-        reaction, user = await self.client.wait_for("reaction_add", timeout=30.0, check=checkReaction)
-      except:
-        await ctx.send(f"Se acabó el tiempo de espera... inicia de nuevo")
+        try:
+            reaction, user = await self.client.wait_for("reaction_add", timeout=30.0, check=checkReaction)
+        except:
+            await ctx.send(f"Se acabó el tiempo de espera... inicia de nuevo")
 
-      if str(reaction.emoji) == "1️⃣":
-          await ticTacToe(ctx, self.client)
-          pass
-      elif str(reaction.emoji) == "2️⃣":
-          await ctx.send("En proceso ahorcado ... :wrench:")
-          pass
-      elif str(reaction.emoji) == "3️⃣":
-          await rsp(ctx, self.client)
-          pass
+        if str(reaction.emoji) == "1️⃣":
+            await ticTacToe(ctx, self.client)
+            pass
+        elif str(reaction.emoji) == "2️⃣":
+            await ctx.send("En proceso ahorcado ... :wrench:")
+            pass
+        elif str(reaction.emoji) == "3️⃣":
+            await rsp(ctx, self.client)
+            pass
 
 
 async def ticTacToe(ctx, bot):
@@ -61,8 +63,8 @@ async def ticTacToe(ctx, bot):
     player_2, player_2_mention = await getUserChar(ctx, bot, 2)
 
     currentPlayer_dict = {
-      1 : player_1_mention,
-      2 : player_2_mention
+        1: player_1_mention,
+        2: player_2_mention
     }
 
     await ctx.channel.purge(limit=3)
@@ -77,8 +79,8 @@ async def ticTacToe(ctx, bot):
         for i in range(len(emojis)):
             await msg.add_reaction(emojis[i])
 
-        try :
-          reaction, user = await bot.wait_for("reaction_add", timeout=30.0, check=checkNotBot)
+        try:
+            reaction, user = await bot.wait_for("reaction_add", timeout=30.0, check=checkNotBot)
         except:
             await ctx.channel.purge(limit=1)
             await ctx.send("Se agotó el tiempo de juego... inicia de nuevo")
@@ -138,6 +140,7 @@ async def ticTacToe(ctx, bot):
 
         currentPlayer += 1
         turn += 1
+
 
 def makeMove(emoji, emojiList, player, board):
     for index in range(len(REACTIONEMOJI)):
@@ -222,18 +225,19 @@ async def getUserChar(ctx, bot, currentPlayer):
 
     return str(reaction.emoji), user.name
 
-async def rsp(ctx, bot):
 
-    choices = {"✂️":0,"📄":1,"⛰️":2}
-    condition = ["empataste","ganas","pierdes"]
+async def rsp(ctx, bot):
+    choices = {"✂️": 0, "📄": 1, "⛰️": 2}
+    condition = ["empataste", "ganas", "pierdes"]
     bot_choice = random.choice(list(choices.keys()))
 
     msg = await ctx.send("Escoge uno ")
     for c in list(choices.keys()):
-      await msg.add_reaction(c)
+        await msg.add_reaction(c)
 
     def checkReaction(reaction, user):
-          return user != bot.user and (str(reaction.emoji) == "📄" or str(reaction.emoji) == "⛰️" or str(reaction.emoji) == "✂️")
+        return user != bot.user and (
+                    str(reaction.emoji) == "📄" or str(reaction.emoji) == "⛰️" or str(reaction.emoji) == "✂️")
 
     try:
         reaction, user = await bot.wait_for("reaction_add", timeout=30.0, check=checkReaction)
@@ -242,6 +246,7 @@ async def rsp(ctx, bot):
 
     result = choices.get(bot_choice) - choices.get(reaction.emoji)
     await ctx.send(f"El bot eligió {bot_choice} y tu {reaction} así que {condition[result]}")
+
 
 def setup(client):
     client.add_cog(Juegos(client))
