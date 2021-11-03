@@ -1,5 +1,4 @@
 import discord
-import json
 from discord.ext import commands
 from utils import fortune_coockie
 
@@ -53,36 +52,6 @@ class General(commands.Cog, description="Comandos de información general"):
             embed.set_footer(text=fortune_message)
             message = await ctx.send(embed=embed)
             await message.add_reaction("🔥")
-
-    @commands.Cog.listener()
-    async def on_message(self, message):
-        if message.author == self.client.user:
-            return
-
-        if message.channel.name == "contar":
-            ctx = await self.client.get_context(message)
-
-            try:
-                num = int(message.content)
-                id_guild = str(message.guild.id)
-
-                with open("./json/contador.json", encoding="utf-8") as fh:
-                    contador = json.load(fh)
-
-                actual = contador.get(id_guild)
-                if actual + 1 == num:
-                    contador[id_guild] = num
-                else:
-                    await ctx.channel.purge(limit=1)
-                    await ctx.send("Sigue con el conteo :eye:")
-
-                with open("./json/contador.json", "w") as jsonFile:
-                    json.dump(contador, jsonFile)
-
-            except:
-                await ctx.channel.purge(limit=1)
-                await ctx.send("Sigue con el conteo :eye:")
-
 
 def setup(client):
     client.add_cog(General(client))
