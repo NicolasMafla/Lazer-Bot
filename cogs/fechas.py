@@ -44,18 +44,19 @@ class Fechas(commands.Cog):
     #     with open("./json/birthdays.json", encoding="utf-8") as fh:
     #       birthdays = json.load(fh)
     #     for guild in self.bot.guilds:
-    #       if guild.id == 843615200061423617:
-    #         for member in guild.members:
-    #           message_channel = self.bot.get_channel(899327174258073610)
-    #           dob_dict = get_bd(str(guild.id), str(member.id), birthdays)
-    #           dob = convert_date(dob_dict.get("dob"))
-    #           print(dob)
-    #           now = datetime.datetime.utcnow() - relativedelta(hours=5)
-    #           now_back = now - relativedelta(seconds=10.0)
-    #           print(f"current: {now}")
-    #           print(f"current_back: {now_back}")
-    #           if check_is_today(dob, now, now_back):
-    #             await message_channel.send(f"Feliz cumpleaños {member.mention}")
+    #       if guild.id == 746539159715315792:
+    #         continue
+    #       for member in guild.members:
+    #         message_channel = self.bot.get_channel(899327174258073610)
+    #         dob_dict = get_bd(str(guild.id), str(member.id), birthdays)
+    #         dob = convert_date(dob_dict.get("dob"))
+    #         print(dob)
+    #         now = datetime.datetime.utcnow() - relativedelta(hours=5)
+    #         now_back = now - relativedelta(seconds=10.0)
+    #         print(f"current: {now}")
+    #         print(f"current_back: {now_back}")
+    #         if check_is_today(dob, now, now_back):
+    #           await message_channel.send(f"Feliz cumpleaños {member.mention}")
 
     # @reminder.before_loop
     # async def before_printer(self):
