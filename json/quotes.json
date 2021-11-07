@@ -38,7 +38,7 @@
   {"phrase": "Se vuelve más fácil. Cada día es un poco más fácil. Pero tienes que hacerlo cada día. Esa es la parte difícil."},
   {"phrase": "No sé cómo puedes esperar a que alguien te ame, cuando claramente te odias a ti mismo."},
   {"phrase": "Cuántas veces hemos dicho que estamos cansados, cuando en realidad estamos tristes y deprimidos."},
-  {"phrase": "Soy feliz por primera vez y no me voy a sentir mal por eso."},
+  {"phrase": "Se feliz por primera vez y no me sientas mal por eso."},
   {"phrase": "No es vergonzoso morir por nada. Es por lo que la mayoría de gente muere"},
   {"phrase": "Nadie existe a propósito. Nadie pertenece a ningún lugar. "},
   {"phrase": "Lo que la gente llama 'amor' es sólo una reacción química que motiva a los animales a aparearse."},
@@ -92,7 +92,7 @@
   {"phrase": "Siempre recuerda que tú eres absolutamente único. Al igual que todos los demás."},
   {"phrase": "La pereza es madre de todos los vicios, y como madre... hay que respetarla."},
   {"phrase": "La edad es algo que no importa, a menos que seas un queso."},
-  {"phrase": "No eres un completo inútil, por lo menos sirvo de mal ejemplo."},
+  {"phrase": "No eres un completo inútil, por lo menos sirves de mal ejemplo."},
   {"phrase": "No te preocupes, como mucho el peor día de tu vida solo durará 24 horas."},
   {"phrase": "Ve al cielo por el clima, y al infierno por la compañía."},
   {"phrase": "El secreto de la vida es la honestidad y un trato justo. Si puedes fingirlo, lo tienes hecho."},
@@ -115,5 +115,6 @@
   {"phrase": "Mira a la oscuridad durante un tiempo y al final verás lo que no hay en ella."},
   {"phrase": "Pretender que el mal no existe solo lo hace más amenazante y grande."},
   {"phrase": "Fumar mata. Si mueres, pierdes una parte muy importante de tu vida."},
-  {"phrase": "Confucio era un chino japonés muy antiguo que inventó la confusión."}
+  {"phrase": "Confucio era un chino japonés muy antiguo que inventó la confusión."},
+  {"phrase": "Lo malo pasa, pero lo bueno también pasa, y así se va la vida."}
 ]
