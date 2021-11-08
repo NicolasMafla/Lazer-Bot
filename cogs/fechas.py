@@ -54,7 +54,7 @@ class Fechas(commands.Cog):
             dob = convert_date(dob_dict.get("dob"))
             now = datetime.datetime.utcnow() - relativedelta(hours=5)
             if check_is_today(dob, now):
-              print("birthdays today!")
+              print(f"birthday of {member.name}!")
               years = now - dob
               embed = discord.Embed(title=f"🎉🎂 *Feliz cumpleaños #{int(years.days/365)}* 🎂🎉", description = f"Larga vida a {member.mention}, que la suerte esté de tu lado, come mucho pastel y sigue manqueando!\nAtt: **{guild.name}**", color=member.color)
               embed.set_image(url=f"https://c.tenor.com/d3yoMUgo1j4AAAAC/2021party-twerk.gif")
@@ -64,7 +64,7 @@ class Fechas(commands.Cog):
               message = await channel.send(embed=embed)
               await message.add_reaction("🔥")
             else:
-              print("no birthdays today!")
+              print(f"Is no birthday of {member.name}!")
 
     @reminder.before_loop
     async def before_printer(self):
