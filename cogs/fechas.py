@@ -6,14 +6,15 @@ import datetime
 from dateutil.relativedelta import relativedelta
 from discord.ext import tasks, commands
 from utils import validate_date
+from utils import fortune_coockie
 
 class Fechas(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    # @commands.Cog.listener()
-    # async def on_ready(self):
-    #     self.reminder.start()
+    @commands.Cog.listener()
+    async def on_ready(self):
+      self.reminder.start()
 
     @commands.command(description="Agregar cumpleaños de un miembro. La fecha de nacimiento debe estar en formato dd/mm/aaaa.",
                       brief="Agregar un cumpleaños con la fecha de nacimiento")
@@ -39,28 +40,32 @@ class Fechas(commands.Cog):
           with open("./json/birthdays.json", "w", encoding="utf-8") as jsonFile:
             json.dump(birthdays, jsonFile)
 
-    # @tasks.loop(seconds=10.0)
-    # async def reminder(self):
-    #     with open("./json/birthdays.json", encoding="utf-8") as fh:
-    #       birthdays = json.load(fh)
-    #     for guild in self.bot.guilds:
-    #       if guild.id == 746539159715315792:
-    #         continue
-    #       for member in guild.members:
-    #         message_channel = self.bot.get_channel(899327174258073610)
-    #         dob_dict = get_bd(str(guild.id), str(member.id), birthdays)
-    #         dob = convert_date(dob_dict.get("dob"))
-    #         print(dob)
-    #         now = datetime.datetime.utcnow() - relativedelta(hours=5)
-    #         now_back = now - relativedelta(seconds=10.0)
-    #         print(f"current: {now}")
-    #         print(f"current_back: {now_back}")
-    #         if check_is_today(dob, now, now_back):
-    #           await message_channel.send(f"Feliz cumpleaños {member.mention}")
+    @tasks.loop(hours=3.0)
+    async def reminder(self):
+        with open("./json/birthdays.json", encoding="utf-8") as fh:
+          birthdays = json.load(fh)
+        for guild in self.bot.guilds:
+          if guild.id == 843615200061423617:
+            continue
+          print(f"checking for birthdays at {datetime.datetime.utcnow() - relativedelta(hours=5)} in {guild.name}")
+          channel = self.bot.get_channel(746539159715315797)
+          for member in guild.members:
+            dob_dict = get_bd(str(guild.id), str(member.id), birthdays)
+            dob = convert_date(dob_dict.get("dob"))
+            now = datetime.datetime.utcnow() - relativedelta(hours=5)
+            if check_is_today(dob, now):
+              years = now - dob
+              embed = discord.Embed(title=f"🎉🎂 *Feliz cumpleaños #{int(years.days/365)}* 🎂🎉", description = f"Larga vida a {member.mention}, que la suerte esté de tu lado, come mucho pastel y sigue manqueando!\nAtt: **{guild.name}**", color=member.color)
+              embed.set_image(url=f"https://c.tenor.com/d3yoMUgo1j4AAAAC/2021party-twerk.gif")
+              fortune_message = f"Galleta de la fortuna: {fortune_coockie()}"
+              embed.set_footer(text=fortune_message)
+              embed.set_thumbnail(url=f"{member.avatar_url}")
+              message = await channel.send(embed=embed)
+              await message.add_reaction("🔥")
 
-    # @reminder.before_loop
-    # async def before_printer(self):
-    #     await self.bot.wait_until_ready()
+    @reminder.before_loop
+    async def before_printer(self):
+      await self.bot.wait_until_ready()
 
 def get_bd(guild_id, member_id, birthdays):
   dob_dict = birthdays.get(guild_id).get(member_id)
@@ -75,17 +80,14 @@ def convert_date(dob):
   else:
     return datetime.datetime.strptime(dob, "%d/%m/%Y")
 
-def check_is_today(dob, now, now_back):
+def check_is_today(dob, now):
   month_now = now.month
   day_now = now.day
-
-  month_now_back = now_back.month
-  day_now_back = now_back.day
 
   month_dob = dob.month
   day_dob = dob.day
 
-  if (month_now==month_now_back==month_dob) and (day_now==day_now_back==day_dob):
+  if (month_now==month_dob) and (day_now==day_dob):
     return True
   else:
     return False
