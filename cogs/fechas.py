@@ -40,7 +40,7 @@ class Fechas(commands.Cog):
           with open("./json/birthdays.json", "w", encoding="utf-8") as jsonFile:
             json.dump(birthdays, jsonFile)
 
-    @tasks.loop(hours=3.0)
+    @tasks.loop(hours=5.0)
     async def reminder(self):
         with open("./json/birthdays.json", encoding="utf-8") as fh:
           birthdays = json.load(fh)
